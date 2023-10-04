@@ -1,0 +1,11 @@
+[Unit]
+Description=Mon Daemon Service
+After=network.target
+
+[Service]
+ExecStart=/home/raspberry/boitier-salle/execute.sh
+Restart=always
+User=raspberry  # Remplacez "pi" par le nom de l'utilisateur approprié
+
+[Install]
+WantedBy=multi-user.target
