@@ -1,1 +1,1 @@
-python sonar.py
+python /home/raspberry/boitier-salle/sonar.py
