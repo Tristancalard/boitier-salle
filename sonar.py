@@ -45,9 +45,12 @@ if __name__ == '__main__':
         while True:
             dist = distance()
             fichier.write("Measured Distance = %.1f cm" % dist)
+            fichier.flush()
             time.sleep(1)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
+    finally:
+        fichier.close()
