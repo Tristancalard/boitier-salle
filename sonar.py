@@ -51,17 +51,18 @@ def write_in_file(personne):
 
 if __name__ == '__main__':
     personne = 0
+    porter = 20
     write_in_file(personne)
     try:
         while True:
             dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
             dist2 = distance(GPIO_TRIGGER2, GPIO_ECHO2)
-            if (dist1 < 20 and dist2 > 20):
+            if (dist1 < porter and dist2 > porter):
                 personne+=1
                 write_in_file(personne)
                 time.sleep(1)
             else :
-                if (dist2 < 20 and dist1 > 20):
+                if (dist2 < porter and dist1 > porter):
                     personne-=1
                     write_in_file(personne)
                     time.sleep(1)
