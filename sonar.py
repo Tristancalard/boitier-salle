@@ -16,9 +16,6 @@ GPIO.setup(GPIO_ECHO1, GPIO.IN)
 GPIO.setup(GPIO_TRIGGER2, GPIO.OUT)
 GPIO.setup(GPIO_ECHO2, GPIO.IN)
 
-#set personne count
-personne = 0
-
 def distance(trigger, echo):
     # set Trigger to HIGH
     GPIO.output(trigger, True)
@@ -46,13 +43,14 @@ def distance(trigger, echo):
 
     return distance
 
-def write_in_file():
+def write_in_file(personne):
     fichier = open("info_salle.txt", "w")
     fichier.write("Il y a {} personne dans la salle".format(personne))
     fichier.flush()
     fichier.close()
 
 if __name__ == '__main__':
+    personne = 0
     time.sleep(2)
     try:
         while True:
@@ -60,12 +58,12 @@ if __name__ == '__main__':
             dist2 = distance(GPIO_TRIGGER2, GPIO_ECHO2)
             if (dist1 < 20 and dist2 > 20):
                 personne+=1
-                write_in_file()
+                write_in_file(personne)
                 time.sleep(1)
             else :
                 if (dist2 < 20 and dist1 > 20):
                     personne-=1
-                    write_in_file()
+                    write_in_file(personne)
                     time.sleep(1)
 
         # Reset by pressing CTRL + C
