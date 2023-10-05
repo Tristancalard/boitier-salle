@@ -46,20 +46,24 @@ def distance(trigger, echo):
 
     return distance
 
+def write_in_file():
+    fichier = open("info_salle.txt", "w")
+    fichier.write("Il y a {} personne dans la salle".format(personne))
+    fichier.flush()
+    fichier.close()
+
 if __name__ == '__main__':
     try:
         while True:
-            fichier = open("info_salle.txt", "w")
             dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
             dist2 = distance(GPIO_TRIGGER2, GPIO_ECHO2)
-            if (dist1 < 10):
+            if (dist1 < 20 and dist2 > 20):
                 personne+=1
-            if (dist2 < 10):
+                write_in_file()
+            if (dist2 < 20 and dist1 > 20):
                 personne-=1
-            fichier.write("Il y a {} personne dans la salle".format(personne))
-            fichier.flush()
-            fichier.close()
-            time.sleep(0.1)
+                write_in_file()
+            time.sleep(0.5)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
