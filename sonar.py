@@ -12,6 +12,9 @@ GPIO_ECHO = 24
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
 
+#set personne count
+personne = 0
+
 def distance():
     # set Trigger to HIGH
     GPIO.output(GPIO_TRIGGER, True)
@@ -40,17 +43,18 @@ def distance():
     return distance
 
 if __name__ == '__main__':
-    fichier = open("info_salle.txt", "w")
     try:
         while True:
+            fichier = open("info_salle.txt", "w")
             dist = distance()
-            fichier.write("Measured Distance = %.1f cm" % dist)
+            if (dist < 10):
+                personne+=1
+            fichier.write("Il y a {} personne dans la salle".format(personne))
             fichier.flush()
+            fichier.close()
             time.sleep(1)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
-    finally:
-        fichier.close()
