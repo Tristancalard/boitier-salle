@@ -60,11 +60,12 @@ if __name__ == '__main__':
             if (dist1 < 20 and dist2 > 20):
                 personne+=1
                 write_in_file()
+                time.sleep(1)
             else :
                 if (dist2 < 20 and dist1 > 20):
                     personne-=1
                     write_in_file()
-            time.sleep(0.5)
+                time.sleep(1)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
