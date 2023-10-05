@@ -5,33 +5,37 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 #set GPIO Pins
-GPIO_TRIGGER = 23
-GPIO_ECHO = 24
+GPIO_TRIGGER1 = 23
+GPIO_ECHO1 = 24
+GPIO_TRIGGER2 = 8
+GPIO_ECHO2 = 25
 
 #set GPIO direction (IN / OUT)
-GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
-GPIO.setup(GPIO_ECHO, GPIO.IN)
+GPIO.setup(GPIO_TRIGGER1, GPIO.OUT)
+GPIO.setup(GPIO_ECHO1, GPIO.IN)
+GPIO.setup(GPIO_TRIGGER2, GPIO.OUT)
+GPIO.setup(GPIO_ECHO2, GPIO.IN)
 
 #set personne count
 personne = 0
 
-def distance():
+def distance(trigger, echo):
     # set Trigger to HIGH
-    GPIO.output(GPIO_TRIGGER, True)
+    GPIO.output(trigger, True)
 
     # set Trigger after 0.01ms to LOW
     time.sleep(0.00001)
-    GPIO.output(GPIO_TRIGGER, False)
+    GPIO.output(trigger, False)
 
     StartTime = time.time()
     StopTime = time.time()
 
     # save StartTime
-    while GPIO.input(GPIO_ECHO) == 0:
+    while GPIO.input(echo) == 0:
         StartTime = time.time()
 
     # save time of arrival
-    while GPIO.input(GPIO_ECHO) == 1:
+    while GPIO.input(echo) == 1:
         StopTime = time.time()
 
     # time difference between start and arrival
@@ -46,13 +50,16 @@ if __name__ == '__main__':
     try:
         while True:
             fichier = open("info_salle.txt", "w")
-            dist = distance()
-            if (dist < 10):
+            dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
+            dist2 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
+            if (dist1 < 10):
                 personne+=1
+            if (dist2 < 10):
+                personne-=1
             fichier.write("Il y a {} personne dans la salle".format(personne))
             fichier.flush()
             fichier.close()
-            time.sleep(0.5)
+            time.sleep(0.1)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
