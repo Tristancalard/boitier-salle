@@ -51,7 +51,7 @@ if __name__ == '__main__':
         while True:
             fichier = open("info_salle.txt", "w")
             dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
-            dist2 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
+            dist2 = distance(GPIO_TRIGGER2, GPIO_ECHO2)
             if (dist1 < 10):
                 personne+=1
             if (dist2 < 10):
