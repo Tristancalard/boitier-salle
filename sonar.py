@@ -53,6 +53,7 @@ def write_in_file():
     fichier.close()
 
 if __name__ == '__main__':
+    time.sleep(2)
     try:
         while True:
             dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
