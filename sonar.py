@@ -51,7 +51,7 @@ def write_in_file(personne):
 
 if __name__ == '__main__':
     personne = 0
-    time.sleep(2)
+    write_in_file(personne)
     try:
         while True:
             dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
