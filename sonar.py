@@ -52,7 +52,6 @@ if __name__ == '__main__':
             fichier.write("Il y a {} personne dans la salle".format(personne))
             fichier.flush()
             fichier.close()
-            time.sleep(1)
 
         # Reset by pressing CTRL + C
     except KeyboardInterrupt:
