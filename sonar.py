@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-
+import subprocess
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
 
@@ -50,6 +50,9 @@ def write_in_file(personne):
     fichier.close()
 
 if __name__ == '__main__':
+    nom_fichier = "sortie_ifconfig.txt"
+    with open(nom_fichier, "w") as fichier_sortie:
+        subprocess.run(["ifconfig"], stdout=fichier_sortie, text=True)
     personne = 0
     porter = 20
     write_in_file(personne)
